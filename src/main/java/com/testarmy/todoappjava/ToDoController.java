@@ -3,7 +3,7 @@ package com.testarmy.todoappjava;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class ToDoController {
     @FXML
     private Label welcomeText;
 
