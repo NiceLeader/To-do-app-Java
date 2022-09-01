@@ -21,7 +21,7 @@
          <Insets bottom="20" left="0" right="0" top="20" />
       </GridPane.margin>
    </Label>
-   <Label prefHeight="17.0" prefWidth="73.0" text="Email ID : " GridPane.columnIndex="0" GridPane.rowIndex="2" />
+   <Label prefHeight="17.0" prefWidth="73.0" text="Login :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
    <TextField fx:id="emailIdField" maxWidth="-Infinity" prefHeight="40" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
    <Label prefHeight="17.0" prefWidth="80.0" text="Password : " GridPane.columnIndex="0" GridPane.rowIndex="3" />
    <PasswordField fx:id="passwordField" maxWidth="-Infinity" prefHeight="40" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
