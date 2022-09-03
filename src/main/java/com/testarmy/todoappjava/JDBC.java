@@ -47,9 +47,9 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
             }
         }
     }
-    private static void createTask(Connection connection) throws SQLException {
+    private static void createTableTask(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
-            String sqlCreateTask = """
+            String sqlCreateTableTask = """
                     CREATE TABLE task(
                             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                             title VARCHAR(255) NOT NULL,
@@ -60,12 +60,12 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
                             user_id INT NOT NULL,
                             FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE);
                                                  """;
-            statement.executeUpdate(sqlCreateTask);
+            statement.executeUpdate(sqlCreateTableTask);
         }
 
-        private static void createTableUsers(Connection connection) throws SQLException {
+        private static void createTableUser(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
-            String sqlCreateTask = """
+            String sqlCreateTableUser = """
                     CREATE TABLE IF NOT EXIST user(
                             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                             name VARCHAR(128) NOT NULL
@@ -74,7 +74,7 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
                             password CHAR(60) NOT NULL
                             email VARCHAR(255) UNIQUE);
                                                  """;
-            statement.executeUpdate(sqlCreateTask);
+            statement.executeUpdate(sqlCreateTableUser);
         }
 
     public static void addTask(Connection connection) throws SQLException {
