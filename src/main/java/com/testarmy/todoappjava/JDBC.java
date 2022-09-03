@@ -3,7 +3,7 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class JDBC {
-    protected static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
     protected static  String DATABASE_USERNAME = "root";
     protected int returnGeneratedKeys = Statement.RETURN_GENERATED_KEYS;
     protected static  String DATABASE_PASSWORD = "Grupa03!";
@@ -65,7 +65,7 @@ public class JDBC {
         }
 
         private static void createTableUser(Connection connection) throws SQLException {
-                String sqlCreateTableUser = """
+            String sqlCreateTableUser = """
                     CREATE TABLE IF NOT EXISTS user(
                             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                             name VARCHAR(128) NOT NULL,
@@ -79,7 +79,7 @@ public class JDBC {
         }
 
     public static void addTask(Connection connection) throws SQLException {
-            String sqlUpdate = """
+           String sqlUpdate = """
                      INSERT INTO task(title,description,priority,user_id) VALUES
                     (?,?,?,?)
                         """;
@@ -111,12 +111,22 @@ public class JDBC {
         preparedStatement.setInt(2,Integer.parseInt(id));
         preparedStatement.executeUpdate();
     }
+    private static void createDatabase(Connection connection) throws SQLException {
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("wpisz nazwę bazy danych");
+//        String name = scanner.nextLine();
+        String sqlCreateDatabase = """
+                    CREATE DATABASE IF NOT EXISTS todo;
+                                        """;
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlCreateDatabase);
+        //preparedStatement.setString(1, name);
+        preparedStatement.execute();
+    }
 
     public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
-        //updateStatusOfTask(connection);
-        addTask(connection);
-       // createTableTask(connection);
+        connection.setCatalog("to_do_app");
+        System.out.println("obecna baza danych: "+connection.getCatalog());
     }
 }
 
