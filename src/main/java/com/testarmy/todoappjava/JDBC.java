@@ -145,7 +145,48 @@ public class JDBC {
         preparedStatement.setString(4, password);
         preparedStatement.setString(5, email);
         preparedStatement.executeUpdate();
+        String sqlSearchId = "SELECT id FROM user ORDER BY id DESC LIMIT 1;";
+        PreparedStatement statement = connection.prepareStatement(sqlSearchId);
+        statement.executeUpdate();
+        return Integer.parseInt(sqlSearchId);
 
+
+    }
+    private static void deleteTask(Connection connection) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("podaj id zadania do skasowania");
+        String id = scanner.nextLine();
+        String sqlDelete = "DELETE FROM task WHERE id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlDelete);
+        preparedStatement.setInt(1,Integer.parseInt(id));
+        preparedStatement.executeUpdate();
+    }
+
+    private static ResultSet search(Connection connection) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("podaj id użytkownika do wyszukania");
+        String id = scanner.nextLine();
+        String sqlSearch = "SELECT * FROM user WHERE id= ?";
+        PreparedStatement statement = connection.prepareStatement(sqlSearch);
+        statement.setInt(1, Integer.parseInt(id));
+        ResultSet resultSetSearch = statement.executeQuery();
+        System.out.println("imię, nazwisko, login, hasło, email");
+        return resultSetSearch;
+    }
+
+
+    public static void showAllColumnsFromResultSet(ResultSet resultSet) throws SQLException {
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        for (int i = 2; i <= resultSetMetaData.getColumnCount(); i++){
+            System.out.print(resultSetMetaData.getColumnLabel(i) + ", ");
+        }
+        System.out.println();
+        while (resultSet.next()){
+            for (int i = 2; i <= resultSetMetaData.getColumnCount(); i++){
+                System.out.print(resultSet.getString(i) + ", ");
+            }
+            System.out.println();
+        }
     }
 
     public static void main(String[] args) throws SQLException {
