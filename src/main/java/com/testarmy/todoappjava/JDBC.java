@@ -34,6 +34,23 @@ public class JDBC {
         }
         return false;
     }
+    public boolean loginUser(Connection connection) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("podaj login");
+        String login = scanner.nextLine();
+        System.out.println("podaj hasło");
+        String password = scanner.nextLine();
+        String sqlSearch = "SELECT id,name,password FROM user WHERE login=? AND password=?;";
+        PreparedStatement statement = connection.prepareStatement(sqlSearch);
+        String sqlPswd = "SELECT password FROM user WHERE login=?;";
+        PreparedStatement pswd = connection.prepareStatement(sqlPswd);
+        pswd.executeUpdate();
+        statement.setString(1, login);
+        if (BCrypt.checkpw(password, )==true) {
+            statement.setString(2, password);
+            statement.executeUpdate();
+        } System.out.println("błędne hasło");
+    }
 
     public static void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
