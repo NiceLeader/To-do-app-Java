@@ -4,7 +4,7 @@ import java.sql.*;
 public class JDBC {
 private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
     private static  String DATABASE_USERNAME = "root";
-    private static  String DATABASE_PASSWORD = "";
+    private static  String DATABASE_PASSWORD = "Grupa03!";
     private static  String SELECT_QUERY = "SELECT * FROM registration WHERE email_id = ? and password = ?";
 
 
