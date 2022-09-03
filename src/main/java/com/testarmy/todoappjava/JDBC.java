@@ -1,4 +1,6 @@
 package com.testarmy.todoappjava;
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.sql.*;
 import java.util.List;
 import java.util.Scanner;
@@ -140,9 +142,10 @@ public class JDBC {
         preparedStatement.setString(1, name);
         preparedStatement.setString(2, surname);
         preparedStatement.setString(3, login);
-        preparedStatement.setString(4, hashed);
+        preparedStatement.setString(4, password);
         preparedStatement.setString(5, email);
         preparedStatement.executeUpdate();
+
     }
 
     public static void main(String[] args) throws SQLException {
