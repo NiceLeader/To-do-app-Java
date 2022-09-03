@@ -51,7 +51,7 @@ public class JDBC {
     private static void createTableTask(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
             String sqlCreateTableTask = """
-                    CREATE TABLE IF NOT EXISTS task2(
+                    CREATE TABLE IF NOT EXISTS task(
                             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                             title VARCHAR(255) NOT NULL,
                             description TEXT NOT NULL,
@@ -62,6 +62,7 @@ public class JDBC {
                             FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE);
                                                  """;
         PreparedStatement preparedStatement = connection.prepareStatement(sqlCreateTableTask);
+        preparedStatement.executeUpdate();
         }
 
         private static void createTableUser(Connection connection) throws SQLException {
@@ -76,6 +77,7 @@ public class JDBC {
                             email VARCHAR(255) UNIQUE);
                                                  """;
             PreparedStatement preparedStatement = connection.prepareStatement(sqlCreateTableUser);
+            preparedStatement.executeUpdate();
         }
 
     public static void addTask(Connection connection) throws SQLException {
@@ -117,7 +119,7 @@ public class JDBC {
     public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
         PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY);
-        addTask(connection);
+        createTableTask(connection);
     }
 }
 
