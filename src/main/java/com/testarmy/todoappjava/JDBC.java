@@ -68,10 +68,10 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
             String sqlCreateTableUser = """
                     CREATE TABLE IF NOT EXISTS user(
                             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                            name VARCHAR(128) NOT NULL
-                            surname VARCHAR(255) NOT NULL
-                            login VARCHAR(128) NOT NULL UNIQUE
-                            password CHAR(60) NOT NULL
+                            name VARCHAR(128) NOT NULL,
+                            surname VARCHAR(255) NOT NULL,
+                            login VARCHAR(128) NOT NULL UNIQUE,
+                            password CHAR(60) NOT NULL,
                             email VARCHAR(255) UNIQUE);
                                                  """;
             statement.executeUpdate(sqlCreateTableUser);
@@ -116,6 +116,7 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
     public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
         PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY);
+        createTableUser(connection);
     }
 }
 
