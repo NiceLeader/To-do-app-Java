@@ -96,7 +96,7 @@ public class JDBC {
             String priority = scanner.nextLine();
             System.out.println("podaj numer użytkownika do którego należy zadanie");
             String userId = scanner.nextLine();
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate);
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, description);
             preparedStatement.setString(3, priority);
