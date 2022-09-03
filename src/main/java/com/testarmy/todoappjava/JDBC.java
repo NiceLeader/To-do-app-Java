@@ -112,14 +112,10 @@ public class JDBC {
         preparedStatement.executeUpdate();
     }
     private static void createDatabase(Connection connection) throws SQLException {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("wpisz nazwę bazy danych");
-//        String name = scanner.nextLine();
         String sqlCreateDatabase = """
-                    CREATE DATABASE IF NOT EXISTS todo;
+                    CREATE DATABASE IF NOT EXISTS to_do_app;
                                         """;
         PreparedStatement preparedStatement = connection.prepareStatement(sqlCreateDatabase);
-        //preparedStatement.setString(1, name);
         preparedStatement.execute();
     }
 
