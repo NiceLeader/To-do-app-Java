@@ -1,7 +1,7 @@
 package com.testarmy.todoappjava;
 import java.sql.*;
+import java.util.List;
 import java.util.Scanner;
-
 public class JDBC {
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
     protected static  String DATABASE_USERNAME = "root";
@@ -79,7 +79,7 @@ public class JDBC {
         }
 
     public static void addTask(Connection connection) throws SQLException {
-           String sqlUpdate = """
+           String sqlAddTask = """
                      INSERT INTO task(title,description,priority,user_id) VALUES
                     (?,?,?,?)
                         """;
@@ -92,7 +92,7 @@ public class JDBC {
             String priority = scanner.nextLine();
             System.out.println("podaj numer użytkownika do którego należy zadanie");
             String userId = scanner.nextLine();
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlAddTask, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, description);
             preparedStatement.setString(3, priority);
@@ -117,6 +117,32 @@ public class JDBC {
                                         """;
         PreparedStatement preparedStatement = connection.prepareStatement(sqlCreateDatabase);
         preparedStatement.execute();
+    }
+
+    private static int createUser(Connection connection) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("podaj imię");
+        String name = scanner.nextLine();
+        System.out.println("podaj nazwisko");
+        String surname = scanner.nextLine();
+        System.out.println("podaj login");
+        String login = scanner.nextLine();
+        System.out.println("podaj hasło");
+        String password = scanner.nextLine();
+        String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+        System.out.println("podaj email");
+        String email = scanner.nextLine();
+        String sqlAddTask = """
+                     INSERT INTO user(name,surname,login,email) VALUES
+                    (?,?,?,?,?)
+                        """;
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlAddTask, Statement.RETURN_GENERATED_KEYS);
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, surname);
+        preparedStatement.setString(3, login);
+        preparedStatement.setString(4, hashed);
+        preparedStatement.setString(5, email);
+        preparedStatement.executeUpdate();
     }
 
     public static void main(String[] args) throws SQLException {
