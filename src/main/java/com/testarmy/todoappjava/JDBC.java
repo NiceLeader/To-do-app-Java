@@ -10,6 +10,7 @@ public class JDBC {
     protected int returnGeneratedKeys = Statement.RETURN_GENERATED_KEYS;
     protected static  String DATABASE_PASSWORD = "Grupa03!";
     protected static  String SELECT_QUERY = "SELECT * FROM registration WHERE email_id = ? and password = ?";
+    protected String name;
 
 
     public boolean validate(String emailId, String password){
@@ -40,16 +41,21 @@ public class JDBC {
         String login = scanner.nextLine();
         System.out.println("podaj hasło");
         String password = scanner.nextLine();
-        String sqlSearch = "SELECT id,name,password FROM user WHERE login=? AND password=?;";
-        PreparedStatement statement = connection.prepareStatement(sqlSearch);
+        String sqlUser = "SELECT id,name,password FROM user WHERE login=? AND password=?;";
+        PreparedStatement statement = connection.prepareStatement(sqlUser);
         String sqlPswd = "SELECT password FROM user WHERE login=?;";
         PreparedStatement pswd = connection.prepareStatement(sqlPswd);
+        pswd.setString(1, login);
         pswd.executeUpdate();
         statement.setString(1, login);
-        if (BCrypt.checkpw(password, )==true) {
+        if (BCrypt.checkpw(password, sqlPswd)) {
             statement.setString(2, password);
+//            String sqlName = "SELECT name FROM user WHERE login=?;";
+//            PreparedStatement name = connection.prepareStatement(sqlName);
+//            name.setString(1,login);
             statement.executeUpdate();
         } System.out.println("błędne hasło");
+        return true;
     }
 
     public static void printSQLException(SQLException ex) {
@@ -138,7 +144,7 @@ public class JDBC {
         preparedStatement.execute();
     }
 
-    private static int createUser(Connection connection) throws SQLException {
+    private static void createUser(Connection connection) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("podaj imię");
         String name = scanner.nextLine();
@@ -152,7 +158,7 @@ public class JDBC {
         System.out.println("podaj email");
         String email = scanner.nextLine();
         String sqlAddTask = """
-                     INSERT INTO user(name,surname,login,email) VALUES
+                     INSERT INTO user(name,surname,login,password,email) VALUES
                     (?,?,?,?,?)
                         """;
         PreparedStatement preparedStatement = connection.prepareStatement(sqlAddTask, Statement.RETURN_GENERATED_KEYS);
@@ -162,10 +168,10 @@ public class JDBC {
         preparedStatement.setString(4, password);
         preparedStatement.setString(5, email);
         preparedStatement.executeUpdate();
-        String sqlSearchId = "SELECT id FROM user ORDER BY id DESC LIMIT 1;";
-        PreparedStatement statement = connection.prepareStatement(sqlSearchId);
-        statement.executeUpdate();
-        return Integer.parseInt(sqlSearchId);
+//        String sqlSearchId = "SELECT id FROM user ORDER BY id DESC LIMIT 1;";
+//        PreparedStatement statement = connection.prepareStatement(sqlSearchId);
+//        statement.executeUpdate();
+//        return Integer.parseInt(sqlSearchId);
 
 
     }
@@ -179,7 +185,7 @@ public class JDBC {
         preparedStatement.executeUpdate();
     }
 
-    private static ResultSet search(Connection connection) throws SQLException {
+    private static ResultSet searchUser(Connection connection) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("podaj id użytkownika do wyszukania");
         String id = scanner.nextLine();
@@ -188,6 +194,18 @@ public class JDBC {
         statement.setInt(1, Integer.parseInt(id));
         ResultSet resultSetSearch = statement.executeQuery();
         System.out.println("imię, nazwisko, login, hasło, email");
+        return resultSetSearch;
+    }
+
+    private static ResultSet searchTask(Connection connection) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("podaj id zadania do wyszukania");
+        String id = scanner.nextLine();
+        String sqlSearch = "SELECT * FROM task WHERE id= ?";
+        PreparedStatement statement = connection.prepareStatement(sqlSearch);
+        statement.setInt(1, Integer.parseInt(id));
+        ResultSet resultSetSearch = statement.executeQuery();
+        System.out.println("nazwa, opis, wykonano, priorytet, user id");
         return resultSetSearch;
     }
 
@@ -210,6 +228,7 @@ public class JDBC {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
         connection.setCatalog("to_do_app");
         System.out.println("obecna baza danych: "+connection.getCatalog());
+
     }
 }
 
