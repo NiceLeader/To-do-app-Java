@@ -2,10 +2,9 @@ package com.testarmy.todoappjava;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
-import java.util.List;
 import java.util.Scanner;
 public class JDBC {
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
+    static final String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
     protected static  String DATABASE_USERNAME = "root";
     protected int returnGeneratedKeys = Statement.RETURN_GENERATED_KEYS;
     protected static  String DATABASE_PASSWORD = "Grupa03!";
@@ -197,7 +196,7 @@ public class JDBC {
         return resultSetSearch;
     }
 
-    private static ResultSet searchTask(Connection connection) throws SQLException {
+    static ResultSet searchTask(Connection connection) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("podaj id zadania do wyszukania");
         String id = scanner.nextLine();
@@ -228,6 +227,7 @@ public class JDBC {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
         connection.setCatalog("to_do_app");
         System.out.println("obecna baza danych: "+connection.getCatalog());
+        showAllColumnsFromResultSet(searchTask(connection));
 
     }
 }

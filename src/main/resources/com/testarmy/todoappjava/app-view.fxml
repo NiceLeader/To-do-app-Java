@@ -30,6 +30,7 @@
          <Insets bottom="20" left="0" right="0" top="20" />
       </GridPane.margin>
    </Button>
+   <Button mnemonicParsing="false" text="test" GridPane.rowIndex="4" fx:id="test" onAction="#testButton" />
    <rowConstraints>
       <RowConstraints />
       <RowConstraints />

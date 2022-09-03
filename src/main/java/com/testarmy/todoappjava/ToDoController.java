@@ -5,7 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Window;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import static com.testarmy.todoappjava.JDBC.*;
 
 public class ToDoController {
     @FXML
@@ -14,6 +18,16 @@ public class ToDoController {
     private PasswordField passwordField;
     @FXML
     private Button submitButton;
+    @FXML
+    private Button test;
+
+    @FXML
+    public void testButton(ActionEvent event) throws SQLException {
+        Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+        connection.setCatalog("to_do_app");
+        System.out.println("obecna baza danych: "+connection.getCatalog());
+        showAllColumnsFromResultSet(searchTask(connection));
+    }
 
     @FXML
     public void login(ActionEvent event) throws SQLException {
