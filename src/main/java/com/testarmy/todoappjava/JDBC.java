@@ -3,14 +3,14 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class JDBC {
-    private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
-    private static  String DATABASE_USERNAME = "root";
-    private int returnGeneratedKeys = Statement.RETURN_GENERATED_KEYS;
-    private static  String DATABASE_PASSWORD = "Grupa03!";
-    private static  String SELECT_QUERY = "SELECT * FROM registration WHERE email_id = ? and password = ?";
+    protected static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
+    protected static  String DATABASE_USERNAME = "root";
+    protected int returnGeneratedKeys = Statement.RETURN_GENERATED_KEYS;
+    protected static  String DATABASE_PASSWORD = "Grupa03!";
+    protected static  String SELECT_QUERY = "SELECT * FROM registration WHERE email_id = ? and password = ?";
 
 
-    public boolean validate(String emailId, String password) throws SQLException {
+    public boolean validate(String emailId, String password){
 
         try (Connection connection = DriverManager
                 .getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
@@ -49,7 +49,6 @@ public class JDBC {
         }
     }
     private static void createTableTask(Connection connection) throws SQLException {
-        Statement statement = connection.createStatement();
             String sqlCreateTableTask = """
                     CREATE TABLE IF NOT EXISTS task(
                             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -66,8 +65,7 @@ public class JDBC {
         }
 
         private static void createTableUser(Connection connection) throws SQLException {
-        Statement statement = connection.createStatement();
-            String sqlCreateTableUser = """
+                String sqlCreateTableUser = """
                     CREATE TABLE IF NOT EXISTS user(
                             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                             name VARCHAR(128) NOT NULL,
@@ -90,7 +88,7 @@ public class JDBC {
             String title = scanner.nextLine();
             System.out.println("podaj opis zadania");
             String description = scanner.nextLine();
-            System.out.println("podaj priorytet zadania(niski, średni, lub wysoki)");
+            System.out.println("podaj priorytet zadania (niski, średni, lub wysoki)");
             String priority = scanner.nextLine();
             System.out.println("podaj numer użytkownika do którego należy zadanie");
             String userId = scanner.nextLine();
@@ -105,7 +103,7 @@ public class JDBC {
         Scanner scanner = new Scanner(System.in);
         System.out.println("podaj numer zadania");
         String id = scanner.nextLine();
-        System.out.println("wybierz status(1 - zadanie wykonane/0 - zadanie nie wykonane)");
+        System.out.println("wybierz status (1 - zadanie wykonane/0 - zadanie nie wykonane)");
         String status = scanner.nextLine();
         String sqlUpdate = "UPDATE task SET done = ? WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate);
@@ -116,7 +114,6 @@ public class JDBC {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
-        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY);
         //updateStatusOfTask(connection);
         addTask(connection);
        // createTableTask(connection);
