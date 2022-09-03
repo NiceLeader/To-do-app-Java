@@ -3,8 +3,9 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class JDBC {
-private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
+    private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
     private static  String DATABASE_USERNAME = "root";
+    private int returnGeneratedKeys = Statement.RETURN_GENERATED_KEYS;
     private static  String DATABASE_PASSWORD = "Grupa03!";
     private static  String SELECT_QUERY = "SELECT * FROM registration WHERE email_id = ? and password = ?";
 
@@ -50,7 +51,7 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
     private static void createTableTask(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
             String sqlCreateTableTask = """
-                    CREATE TABLE IF NOT EXISTS task(
+                    CREATE TABLE IF NOT EXISTS task2(
                             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                             title VARCHAR(255) NOT NULL,
                             description TEXT NOT NULL,
@@ -60,7 +61,7 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
                             user_id INT NOT NULL,
                             FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE);
                                                  """;
-            statement.executeUpdate(sqlCreateTableTask);
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlCreateTableTask);
         }
 
         private static void createTableUser(Connection connection) throws SQLException {
@@ -74,12 +75,12 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
                             password CHAR(60) NOT NULL,
                             email VARCHAR(255) UNIQUE);
                                                  """;
-            statement.executeUpdate(sqlCreateTableUser);
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlCreateTableUser);
         }
 
     public static void addTask(Connection connection) throws SQLException {
-            Statement statement = connection.createStatement();
-            ResultSet resultSetInsert = statement.getGeneratedKeys();
+        Statement statement = connection.createStatement();
+        ResultSet resultSetInsert = statement.getGeneratedKeys();
             String sqlUpdate = """
                      INSERT INTO task(title,description,priority,user_id) VALUES
                     (?,?,?,?)
@@ -91,7 +92,7 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
             String description = scanner.nextLine();
             System.out.println("podaj priorytet zadania");
             String priority = scanner.nextLine();
-            System.out.println("podaj numer użytkownika");
+            System.out.println("podaj numer użytkownika do którego należy zadanie");
             String userId = scanner.nextLine();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate);
             preparedStatement.setString(1, title);
@@ -116,7 +117,7 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
     public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
         PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY);
-        createTableUser(connection);
+        addTask(connection);
     }
 }
 
