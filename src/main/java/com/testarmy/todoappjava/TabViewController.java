@@ -13,11 +13,6 @@ import static com.testarmy.todoappjava.JDBC.*;
 
 public class TabViewController {
 
-    @FXML
-    private TableView tabView;
-    private ObservableList tab;
-
-
 
 
     }
