@@ -57,7 +57,7 @@ public class JDBC {
                             description TEXT NOT NULL,
                             done BOOLEAN NOT NULL DEFAULT FALSE,
                             created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                            priority ENUM ('high', 'normal', 'low') NOT NULL DEFAULT 'low',
+                            priority ENUM ('wysoki', 'średni', 'niski') NOT NULL DEFAULT 'niski',
                             user_id INT NOT NULL,
                             FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE);
                                                  """;
@@ -81,8 +81,6 @@ public class JDBC {
         }
 
     public static void addTask(Connection connection) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSetInsert = statement.getGeneratedKeys();
             String sqlUpdate = """
                      INSERT INTO task(title,description,priority,user_id) VALUES
                     (?,?,?,?)
@@ -92,7 +90,7 @@ public class JDBC {
             String title = scanner.nextLine();
             System.out.println("podaj opis zadania");
             String description = scanner.nextLine();
-            System.out.println("podaj priorytet zadania");
+            System.out.println("podaj priorytet zadania(niski, średni, lub wysoki)");
             String priority = scanner.nextLine();
             System.out.println("podaj numer użytkownika do którego należy zadanie");
             String userId = scanner.nextLine();
@@ -103,13 +101,13 @@ public class JDBC {
             preparedStatement.setInt(4, Integer.parseInt(userId));
             preparedStatement.executeUpdate();
         }
-    private static void update(Connection connection) throws SQLException {
+    private static void updateStatusOfTask(Connection connection) throws SQLException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("podaj id zadania");
+        System.out.println("podaj numer zadania");
         String id = scanner.nextLine();
-        System.out.println("wybierz status");
+        System.out.println("wybierz status(1 - zadanie wykonane/0 - zadanie nie wykonane)");
         String status = scanner.nextLine();
-        String sqlUpdate = "UPDATE task SET status = ? WHERE id = ?";
+        String sqlUpdate = "UPDATE task SET done = ? WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate);
         preparedStatement.setString(1,status);
         preparedStatement.setInt(2,Integer.parseInt(id));
@@ -119,7 +117,9 @@ public class JDBC {
     public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
         PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY);
-        createTableTask(connection);
+        //updateStatusOfTask(connection);
+        addTask(connection);
+       // createTableTask(connection);
     }
 }
 
