@@ -50,7 +50,7 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
     private static void createTableTask(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
             String sqlCreateTableTask = """
-                    CREATE TABLE task(
+                    CREATE TABLE IF NOT EXISTS task(
                             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                             title VARCHAR(255) NOT NULL,
                             description TEXT NOT NULL,
@@ -66,7 +66,7 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
         private static void createTableUser(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
             String sqlCreateTableUser = """
-                    CREATE TABLE IF NOT EXIST user(
+                    CREATE TABLE IF NOT EXISTS user(
                             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                             name VARCHAR(128) NOT NULL
                             surname VARCHAR(255) NOT NULL
@@ -116,7 +116,6 @@ private static  String DATABASE_URL = "jdbc:mysql://localhost:3306/to_do_app";
     public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
         PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY);
-        createTask(connection);
     }
 }
 
