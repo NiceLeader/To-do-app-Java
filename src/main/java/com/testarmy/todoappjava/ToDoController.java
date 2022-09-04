@@ -3,6 +3,7 @@ package com.testarmy.todoappjava;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.mindrot.jbcrypt.BCrypt;
@@ -39,7 +40,7 @@ public class ToDoController {
         System.out.println("obecna baza danych: "+connection.getCatalog());
     }
     @FXML
-    public void loginUser(ActionEvent event) throws SQLException {
+    public void loginUser(MouseEvent event) throws SQLException {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
         connection.setCatalog("to_do_app");
         Scanner scannerLogin = new Scanner(loginField.getText());
@@ -55,14 +56,14 @@ public class ToDoController {
         String sqlPswd = "SELECT password FROM user WHERE login=?;";
         PreparedStatement pswd = connection.prepareStatement(sqlPswd);
         pswd.setString(1, login);
-        pswd.executeUpdate();
+        pswd.execute();
         statement.setString(1, login);
         if (BCrypt.checkpw(password, sqlPswd)) {
             statement.setString(2, password);
 //            String sqlName = "SELECT name FROM user WHERE login=?;";
 //            PreparedStatement name = connection.prepareStatement(sqlName);
 //            name.setString(1,login);
-            statement.executeUpdate();
+            statement.execute();
         } System.out.println("błędne hasło");
     }
 
