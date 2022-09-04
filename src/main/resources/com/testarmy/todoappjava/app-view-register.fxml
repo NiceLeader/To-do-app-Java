@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.testarmy.todoappjava.RegisterController">
+   <children>
+      <TextField fx:id="nameField" layoutX="195.0" layoutY="44.0" />
+      <TextField fx:id="surnameField" layoutX="195.0" layoutY="85.0" />
+      <TextField fx:id="loginField" layoutX="195.0" layoutY="122.0" />
+      <TextField fx:id="passwordField" layoutX="195.0" layoutY="163.0" />
+      <TextField fx:id="emailField" layoutX="195.0" layoutY="200.0" />
+      <Label fx:id="labelName" layoutX="165.0" layoutY="48.0" prefHeight="17.0" prefWidth="30.0" text="Imię" />
+      <Label fx:id="labelLogin" layoutX="161.0" layoutY="126.0" prefHeight="17.0" prefWidth="30.0" text="Login" />
+      <Label fx:id="labelSurname" layoutX="138.0" layoutY="89.0" prefHeight="17.0" prefWidth="57.0" text="Nazwisko" />
+      <Label fx:id="labelPassword" layoutX="157.0" layoutY="167.0" prefHeight="17.0" prefWidth="38.0" text="Hasło" />
+      <Label fx:id="labelEmail" layoutX="161.0" layoutY="204.0" prefHeight="17.0" prefWidth="30.0" text="Email" />
+      <Label fx:id="labelRegister" layoutX="204.0" layoutY="14.0" prefHeight="17.0" prefWidth="131.0" text="Rejestracja użytkownika" />
+   </children>
+</AnchorPane>

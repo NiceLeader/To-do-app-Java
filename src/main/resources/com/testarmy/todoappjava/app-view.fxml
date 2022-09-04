@@ -22,15 +22,15 @@
       </GridPane.margin>
    </Label>
    <Label prefHeight="17.0" prefWidth="73.0" text="Login :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-   <TextField fx:id="emailIdField" maxWidth="-Infinity" prefHeight="40" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   <TextField fx:id="loginField" maxWidth="-Infinity" prefHeight="40" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
    <Label prefHeight="17.0" prefWidth="80.0" text="Password : " GridPane.columnIndex="0" GridPane.rowIndex="3" />
    <PasswordField fx:id="passwordField" maxWidth="-Infinity" prefHeight="40" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-   <Button fx:id="submitButton" defaultButton="true" onAction="#login" prefHeight="40" prefWidth="89.0" text="Submit" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="1">
+   <Button fx:id="submitButton" defaultButton="true" onAction="#loginUser" prefHeight="26.0" prefWidth="89.0" text="Submit" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="1">
       <GridPane.margin>
          <Insets bottom="20" left="0" right="0" top="20" />
       </GridPane.margin>
    </Button>
-   <Button mnemonicParsing="false" text="test" GridPane.rowIndex="4" fx:id="test" onAction="#testButton" />
+   <Button fx:id="register" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="rejestracja" GridPane.rowIndex="4" />
    <rowConstraints>
       <RowConstraints />
       <RowConstraints />
