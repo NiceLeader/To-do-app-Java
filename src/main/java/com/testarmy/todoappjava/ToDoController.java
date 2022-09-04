@@ -27,13 +27,13 @@ public class ToDoController {
     @FXML
     private Button submitButton;
     @FXML
-    private Button registerButton;
+    private Button register;
 
     public ToDoController() throws SQLException {
     }
 
     @FXML
-    public void registerUser(ActionEvent event, Stage stage) throws SQLException, IOException {
+    public void registerButton(ActionEvent event, Stage stage) throws SQLException, IOException {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
         connection.setCatalog("to_do_app");
         System.out.println("obecna baza danych: "+connection.getCatalog());
@@ -59,9 +59,9 @@ public class ToDoController {
         statement.setString(1, login);
         if (BCrypt.checkpw(password, sqlPswd)) {
             statement.setString(2, password);
-            String sqlName = "SELECT name FROM user WHERE login=?;";
-           PreparedStatement name = connection.prepareStatement(sqlName);
-           name.setString(1,login);
+//            String sqlName = "SELECT name FROM user WHERE login=?;";
+//            PreparedStatement name = connection.prepareStatement(sqlName);
+//            name.setString(1,login);
             statement.executeUpdate();
         } System.out.println("błędne hasło");
     }
@@ -116,5 +116,4 @@ public class ToDoController {
     }
 
 
-
-}
+    }

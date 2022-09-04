@@ -13,7 +13,7 @@
       <ColumnConstraints halignment="RIGHT" maxWidth="Infinity" minWidth="100" prefWidth="100" />
       <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="200" prefWidth="200" />
    </columnConstraints>
-   <Label prefHeight="27.0" prefWidth="113.0" text="Welcome!" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.rowSpan="1">
+   <Label prefHeight="27.0" prefWidth="63.0" text="Login" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.rowSpan="1">
       <font>
          <Font name="Arial" size="24" />
       </font>
@@ -25,13 +25,12 @@
    <TextField fx:id="loginField" maxWidth="-Infinity" prefHeight="40" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
    <Label prefHeight="17.0" prefWidth="80.0" text="Password : " GridPane.columnIndex="0" GridPane.rowIndex="3" />
    <PasswordField fx:id="passwordField" maxWidth="-Infinity" prefHeight="40" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-   <Button fx:id="submitButton" defaultButton="true" onAction="#loginUser" prefHeight="26.0" prefWidth="89.0" text="Login" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="1">
+   <Button fx:id="submitButton" defaultButton="true" onAction="#loginUser" prefHeight="26.0" prefWidth="89.0" text="Submit" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="1">
       <GridPane.margin>
          <Insets bottom="20" left="0" right="0" top="20" />
       </GridPane.margin>
    </Button>
-   <Button fx:id="registerButton" alignment="CENTER"  mnemonicParsing="false" prefHeight="25.0"
-           prefWidth="99.0" text="Register" GridPane.rowIndex="4"/>
+   <Button fx:id="register" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="rejestracja" GridPane.rowIndex="4" />
    <rowConstraints>
       <RowConstraints />
       <RowConstraints />
