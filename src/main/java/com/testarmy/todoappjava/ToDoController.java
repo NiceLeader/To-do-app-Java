@@ -35,13 +35,13 @@ public class ToDoController {
     @FXML
     public void registerButton(ActionEvent event, Stage stage) throws SQLException, IOException {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
-        connection.setCatalog("to_do_app");
+        connection.setCatalog("sql11517150");
         System.out.println("obecna baza danych: "+connection.getCatalog());
     }
     @FXML
     public void loginUser(ActionEvent event) throws SQLException {
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
-        connection.setCatalog("to_do_app");
+        connection.setCatalog("sql11517150");
         Scanner scannerLogin = new Scanner(loginField.getText());
         System.out.println("podaj login");
         String login = scannerLogin.nextLine();
@@ -59,9 +59,9 @@ public class ToDoController {
         statement.setString(1, login);
         if (BCrypt.checkpw(password, sqlPswd)) {
             statement.setString(2, password);
-//            String sqlName = "SELECT name FROM user WHERE login=?;";
-//            PreparedStatement name = connection.prepareStatement(sqlName);
-//            name.setString(1,login);
+            String sqlName = "SELECT name FROM user WHERE login=?;";
+            PreparedStatement name = connection.prepareStatement(sqlName);
+           name.setString(1,login);
             statement.executeUpdate();
         } System.out.println("błędne hasło");
     }

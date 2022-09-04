@@ -167,9 +167,9 @@ public class JDBC {
         preparedStatement.setString(4, password);
         preparedStatement.setString(5, email);
         preparedStatement.executeUpdate();
-//        String sqlSearchId = "SELECT id FROM user ORDER BY id DESC LIMIT 1;";
-//        PreparedStatement statement = connection.prepareStatement(sqlSearchId);
-//        statement.executeUpdate();
+        String sqlSearchId = "SELECT id FROM user ORDER BY id DESC LIMIT 1;";
+        PreparedStatement statement = connection.prepareStatement(sqlSearchId);
+       statement.executeUpdate();
 //        return Integer.parseInt(sqlSearchId);
 
 
