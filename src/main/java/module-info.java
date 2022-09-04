@@ -3,6 +3,7 @@ module com.testarmy.todoappjava {
     requires javafx.fxml;
     requires java.sql;
     requires jbcrypt;
+    requires junit;
 
 
     opens com.testarmy.todoappjava to javafx.fxml;
